@@ -1,0 +1,58 @@
+header {
+  background-color: #39265a;
+  padding: 1rem 2rem;
+  color: whitesmoke;
+  margin-left: -15px;
+  margin-right: -15px;
+
+  > span {
+    font-size: 100px;
+    line-height: 1;
+    color: #e91e63;
+  }
+
+  > h2 {
+    color: wheat;
+    font-size: 5rem;
+  }
+
+  > p {
+    display: inline-block;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  > small {
+    background: rgba(255, 255, 255, 0.24);
+    padding: 1rem;
+  }
+}
+
+.media {
+  background-color: white;
+  padding: 2rem 1rem;
+  
+  .pull-left {
+    text-align: center;
+    
+    span {
+      display: block;
+      font-size: 60px;
+      line-height: 1;
+    }
+    h4 {
+      display: block;
+      font-size: 13px;
+    }
+
+  }
+}
+
+.create {
+  background: white;
+  padding: 2rem;
+
+  .col-md-4 {
+    padding: 0;
+  }
+}

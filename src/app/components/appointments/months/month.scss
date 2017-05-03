@@ -1,0 +1,34 @@
+a {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+
+  .month {
+    background: white;
+    padding: 4rem 0;
+    position: relative;
+    font-size: 200%;
+    border: 1px solid #e9e9e9;
+    color: #9A9999;
+    margin: 2pt -10pt;
+    box-shadow: 1px 1px 5px 0px rgba(158,158,158,.1);
+
+    h5 {
+      color: inherit;
+      letter-spacing: 8pt;
+    }
+
+    footer {
+      display: inline-block;
+      position: absolute;
+      border-radius: 50%;
+      right: 10%;
+      border: white 5pt solid;
+      top: 15%;
+
+      span {
+        border-radius: 50%;
+      }
+    }
+  }
+}

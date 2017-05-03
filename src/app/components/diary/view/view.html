@@ -1,0 +1,26 @@
+<style type="text/css">
+  pre {
+    background-color: white;
+    padding: 1.5rem;
+    font-size: 2rem;
+    font-family: trebuchet;
+    border: none;
+  }
+</style>
+
+<ng-template #loadingEl>
+  <div class="text-center">
+    <br /><br />
+    NO DATA AVAILABLE YET. USE THE EDIT BUTTON.
+    <br />
+  </div>
+</ng-template>
+
+<div *ngIf="data$ | async as data; else loadingEl">
+  <div class="text-muted text-italic">
+    Last edited <strong>{{ data?.created | date:'jm' }}</strong>
+  </div>
+  <div>
+    <pre class="lead">{{ data?.content }}</pre>
+  </div>
+</div>

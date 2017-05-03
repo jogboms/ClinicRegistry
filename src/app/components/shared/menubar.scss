@@ -1,0 +1,53 @@
+.menu {
+  padding: 0em;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  background: #E91E63;
+  box-shadow: 0px 0px 8px 5px rgba(107, 95, 99, 0.59);
+
+  * {
+    -webkit-app-region: no-drag;
+  }
+
+  header {
+    border-top: none !important;
+
+    .nav {
+      text-align: center;
+
+      & > li {
+        display: inline-block;
+        vertical-align: middle;
+        letter-spacing: 2px;
+
+        & > a {
+          color: white;
+
+          &:hover, &:active, &:focus {
+            border-radius: 50%;
+            background-color: #C2185B;
+          }
+        }
+        &.home {
+          font-size: 3rem;
+          color: #0a6ebd;
+
+          & > a {
+            padding-top: 0;
+            padding-bottom: 0;
+
+            &:hover {
+              border-radius: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 760px){
+  .menu {
+    margin: auto;
+  }
+}

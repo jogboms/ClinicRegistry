@@ -1,0 +1,77 @@
+<style type="text/css">
+
+  .payment {
+    transition: all .5s ease-in-out;
+
+  }
+  .payment:hover {
+    opacity: 1 !important;
+  }
+  .payment .button {
+    margin-right: 3%;
+    padding: .5%;
+    width: 12%;
+    border: 2pt solid #f6f6f6;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .payment .button span {
+    font-size: 300%;
+  }
+
+  .payment .content {
+    width: 85%;
+    display: inline-block;
+  }
+
+</style>
+<div class="payment">
+
+  <button type="button" (click)="onToggle()" class="btn btn-link button pull-left">
+    <span class="glyphicon glyphicon-ok text-primary"></span>
+  </button>
+
+
+  <div class="content">
+    <div>
+      <h4 class="remove-top inline">
+        <span [hidden]="toggle_edit">
+          {{ payment.payment | currency:'NGN':true}}
+        </span>
+        <span [hidden]="!toggle_edit">
+          <input #f (keyup.enter)="onSave(i, f)" type="text" class="form-control" [value]="payment.payment">
+        </span>
+      </h4>
+
+      &nbsp;
+
+      <button type="button" (click)="onDelete()" class="btn btn-link btn-sm pull-right">
+        <span class="fa-lg glyphicon text-danger glyphicon-trash"></span>
+      </button>
+
+      <button type="button" (click)="onEdit()" class="btn btn-link btn-sm pull-right">
+        <span class="fa-lg glyphicon text-primary glyphicon-pencil"></span>
+      </button>
+    </div>
+
+    <div class="text-muted clearfix">
+      <span class="glyphicon glyphicon-calendar"></span>
+
+      <span [hidden]="toggle_edit">{{ payment.date | date}}</span>
+
+      <span [hidden]="!toggle_edit">
+        &nbsp;<input #i type="date" class="inline form-control" value="{{payment.date | date: 'yyyy-MM-dd'}}">
+        <button type="button" (click)="onSave(i, f)" class="btn btn-link">
+          <span class="glyphicon glyphicon-save fa-lg text-success"></span>
+        </button>
+      </span>
+    </div>
+
+    <p class="lead">
+      {{ payment.comment }}
+    </p>
+  </div>
+</div>
+
+<br />

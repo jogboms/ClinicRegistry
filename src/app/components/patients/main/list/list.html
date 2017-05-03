@@ -1,0 +1,60 @@
+<i *ngIf="patient.vip == true && IS_ADMIN == false; else EL"></i>
+
+<ng-template #EL>
+  <div class="col-md-4 col-sm-6">
+    <div class="media">
+
+      <div class="media-left">
+        <span class="img media-object">
+          {{ patient._bg_text_ }}
+        </span>
+      </div>
+
+      <div class="media-body">
+
+        <button (click)="onDelete(patient.id)" class="btn btn-link close">&times;</button>
+
+        <h5 class="media-heading">
+          <a routerLink="view/{{ patient.id }}">
+            {{ patient.surname }}
+          </a>
+        </h5>
+
+        <div>
+          {{ patient.names }}
+        </div>
+
+        <div class="small">
+          <strong style="font-weight: 500;">{{ patient.created | date }}</strong>
+          <strong *ngIf="patient?.vip" style="font-weight: 500;" class="pull-right label label-primary">VIP</strong>
+          <strong *ngIf="patient?.status" style="font-weight: 500;" class="pull-right label label-danger">UPDATED</strong>
+        </div>
+
+        <div class="clearfix">
+          <span class="label" [style.backgroundColor]="patient.color" style="font-size:90%;font-weight:400;">
+            {{ patient.patient_id }}
+          </span>
+          <span class="pull-right">
+            <a routerLink="view/{{ patient.id }}" fragment="sessions"
+              title="{{ (patient.completed ? 'C':'Unc') }}ompleted Sessions"
+              class="btn btn-link btn-xs">
+              <span class="fa fa-stethoscope fa-lg text-{{ (patient.completed ? 'success g':'warning w') }}"></span>
+            </a>
+
+            <a routerLink="view/{{ patient.id }}" fragment="payments"
+              *ngIf="(patient.deposit == patient.cost)"
+              title="Completed Payment" class="btn btn-link btn-xs">
+              <span class="fa fa-money fa-lg g text-success"></span>
+            </a>
+            <a routerLink="view/{{ patient.id }}" fragment="payments"
+              *ngIf="!(patient.deposit == patient.cost)"
+              title="Uncompleted Payment" class="btn btn-link btn-xs">
+              <span class="fa fa-money fa-lg w text-warning"></span>
+            </a>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-template>

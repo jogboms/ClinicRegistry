@@ -1,0 +1,35 @@
+<p class="lead add-top">
+  {{patient.gender == 'm' ? 'He': 'She'}} was registered on
+  <span class="label label-default p">{{patient.created | date}}</span>
+   at a <span class="u">Total cost</span> of
+   <span class="label label-primary p">{{patient.cost|currency:'NGN':true}}</span>,
+
+  <br /><br />
+
+  
+  {{patient.gender == 'm' ? 'He':'She'}} has only <span class="u">deposited</span> the sum of
+  <span class="label label-success p">{{patient.deposit|currency:'NGN':true}}</span>
+  so far and a <span class="u">Balance</span> of
+  <span class="label label-danger p">{{(patient.cost-patient.deposit)|currency:'NGN':true}}</span>
+  is still required.
+
+  <br /><br />
+
+  {{patient.gender == 'm' ? 'He':'She'}} has
+  <span class="label label-default p">{{!patient.completed ? 'not' : ''}}</span>
+  completed {{patient.gender == 'm' ? 'his':'her'}} sessions with
+  <span class="label label-danger p">{{patient.remaining || 'None'}} Remaining</span>
+  out of the <span class="label label-primary p">{{patient.sessions.length}} Sessions</span>
+  created for {{patient.gender == 'm' ? 'him':'her'}}.
+</p>
+
+<br />
+
+<div *ngIf="patient.referral?.length" class="add-top">
+  <h4 class="remove-top inline">
+    <span class="glyphicon glyphicon-bullhorn text-primary"></span>
+    <small>Referree Record</small>
+  </h4>
+  <p class="lead">{{patient.referral}}</p>
+  <br />
+</div>

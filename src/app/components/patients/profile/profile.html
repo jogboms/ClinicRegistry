@@ -1,0 +1,156 @@
+<div *ngIf="patient"class="container-fluid">
+  <header class="clearfix text-xs-center text-sm-center">
+    <div class="col-lg-2 col-md-1 add-bottom">
+      <div *ngIf="IS_ADMIN && patient?.status" class="text-center">
+        <style type="text/css">
+          .active {
+            color: #c1c1c1;
+            background: #fbfbfb;
+          }
+        </style>
+
+        <header>
+          <h6>
+            <strong style="font-weight: 500;" class="label label-danger">
+              <span class="glyphicon glyphicon-star"></span>&nbsp;
+              NEW UPDATE
+            </strong>
+          </h6>
+          <h6>
+            <small style="font-weight: 500;">
+              <span class="glyphicon glyphicon-time"></span>&nbsp;
+              {{ (patient.updated || patient.created) | date }}
+            </small>
+          </h6>
+        </header>
+
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <a href="#" (click)="toggle($event, 'back')" class="btn btn-link" [class.active]="type == 'back'">
+            <span class="glyphicon glyphicon-fast-backward"></span>&nbsp;
+            <br />
+            Previous
+          </a>
+          <a href="#" (click)="toggle($event, 'up')" class="btn btn-link" [class.active]="type == 'up'">
+            <span class="glyphicon glyphicon-fast-forward"></span>&nbsp;
+            <br />
+            Updated
+          </a>
+        </div>
+
+        <br />
+
+        <button type="button" (click)="seen()" class="btn btn-primary">
+          <span class="glyphicon glyphicon-ok"></span>&nbsp;
+          SEEN UPDATE
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-7 col-md-8" style="padding:0">
+      <div class="col-md-4 row">
+        <div class="text-center img-circle"
+          [style.backgroundColor]="patient.color"
+          style="
+          font-weight: 100; font-size: 60pt;
+          color: white; min-width: 150px;
+          display: inline-block; border: white solid 1rem;">
+          {{ patient._bg_text_ }}
+        </div>
+      </div>
+      <div class="col-md-8 row">
+        <h2 style="text-transform: capitalize; word-wrap: break-word;" class="">
+          <span [style.color]="patient.color">{{ patient.surname }}</span>
+          <small>{{ patient.names }}</small>
+          <small [hidden]="patient.title.length == 0">({{ patient.title }})</small>
+        </h2>
+        <h4>
+          <small>
+            {{ patient.age }}-yr old
+           &middot;
+            {{ patient.telephone }}
+          </small>
+        </h4>
+      </div>
+    </div>
+
+    <div class="col-md-3 add-top add-bottom">
+      <h4>
+        <span class="label" [style.backgroundColor]="patient.color">{{ patient.patient_id }}</span>
+      </h4>
+    </div>
+  </header>
+
+  <article class="clearfix add-top">
+    <div class="col-lg-2 col-md-1 add-bottom"></div>
+
+    <div class="col-lg-7 col-md-8 col-sm-10 col-sm-center col-sm-center add-bottom" style="overflow: hidden;">
+
+      <style type="text/css">
+        .well { display: block; background: white; }
+      </style>
+
+      <patient-sessions
+        @toggle
+        class="well"
+        (actions)="actions.emit($event)"
+        [patient]="patient"
+        *ngIf="(visible == 'sessions')">
+      </patient-sessions>
+
+      <patient-payments
+        @toggle
+        class="well"
+        (actions)="actions.emit($event)"
+        [patient]="patient"
+        *ngIf="(visible == 'payments')">
+      </patient-payments>
+
+      <patient-details
+        @toggle
+        class="well"
+        (actions)="actions.emit($event)"
+        [patient]="patient"
+        *ngIf="(visible == 'details')">
+      </patient-details>
+
+    </div>
+
+    <aside class="col-md-3 col-xs-8 col-xs-center col-sm-center add-bottom">
+      <style type="text/css">
+        li.nav-item {}
+        li.nav-item .btn {}
+        li.nav-item .btn.active { background: white; }
+        li.nav-item .btn span:first-of-type { color: #bbbbbb; }
+        li.nav-item .btn.active span:first-of-type { color: #4caf50; }
+      </style>
+      <ul class="nav">
+        <li class="nav-item">
+          <a [routerLink] fragment="details" class="btn btn-lg btn-block btn-link text-left" [class.active]="visible == 'details'">
+            <span class="glyphicon glyphicon-ok"></span>
+            Details
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink] fragment="sessions" class="btn btn-lg btn-block btn-link text-left" [class.active]="visible == 'sessions'">
+            <span class="glyphicon glyphicon-ok"></span>
+            Sessions
+            &nbsp;<span class="pull-right badge bg-primary">{{ patient.sessions.length }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink] fragment="payments" class="btn btn-lg btn-block btn-link text-left" [class.active]="visible == 'payments'">
+            <span class="glyphicon glyphicon-ok"></span>
+            Payments
+            &nbsp;<span class="pull-right badge bg-primary">{{ patient.payments.length }}</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <button type="button" (click)="onDelete()" class="btn btn-lg btn-block btn-link text-left">
+            <span class="glyphicon glyphicon-trash" style="color: #d9534f !important"></span>
+            Delete
+          </button>
+        </li>
+      </ul>
+    </aside>
+  </article>
+</div>

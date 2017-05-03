@@ -1,0 +1,48 @@
+<div>
+  <h3 class="remove-top">
+    <i class="fa fa-money fa-lg text-primary"></i>
+    <strong class="bg-grey" [hidden]="!!!patient.payments.length">&nbsp;{{patient.payments.length}} </strong>
+    <small>Total</small>
+
+    <span class="pull-right">
+      <span title="Deposit" class="badge bg-success">{{patient.deposit|currency:'NGN':true}}</span>
+      <span title="Debt" class="badge bg-danger">{{(patient.cost - patient.deposit)|currency:'NGN':true}}</span>
+    </span>
+  </h3>
+
+  <br />
+
+  <alert type="success" [open]="create_payment_success" [delay]="3000">
+    Payment was successfully added and saved.
+  </alert>
+
+  <alert type="warning" [open]="patient.payments.length == 0">
+    This patient has not yet made any payment.
+  </alert>
+
+  <div class="clearfix">
+    <patient-payments-list
+      (edit)="edit($event)"
+      (remove)="remove($event)"
+      *ngFor="let payment of patient.payments"
+      [payment]="payment">
+    </patient-payments-list>
+  </div>
+
+  <div class="clearfix">
+    <patient-payments-create (create)="create($event)" *ngIf="create_payment_show"> </patient-payments-create>
+  </div>
+
+  <div class="row">
+    <span [hidden]="create_payment_show">
+      <button (click)="toggle_show_create()" type="button" class="btn btn-primary btn-lg pull-right btn-circle">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </span>
+    <span [hidden]="!create_payment_show">
+      <button (click)="toggle_show_create()" type="button" class="btn btn-secondary btn-lg pull-right btn-circle">
+        <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+    </span>
+  </div>
+</div>

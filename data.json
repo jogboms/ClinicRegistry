@@ -1,0 +1,22 @@
+{
+  "patients":[
+    {"x":3,"y":2017,"z":"HC","i":45,"title":"Mr ","surname":"West Bos","names":"Man","telephone":"098765432345","referral":"","gender":"m","age":13,"cost":768,"created":"2017-03-09T04:06:06.298Z","patient_id":"2017/3/45/HC","color":"#cbbc33","id":"396400715204520"},
+    {"x":3,"y":2017,"z":"HC","i":654,"title":"Mr ","surname":"Again","names":"We","telephone":"0987656789","referral":"","gender":"m","age":133,"cost":768,"created":"2017-03-09T04:06:06.298Z","patient_id":"2017/3/654/HC","color":"#b94834","id":"2a1232e9c401de0"},
+    {"x":3,"y":2017,"z":"HC","i":65362,"title":"Mrs","surname":"GTY","names":"UYT","telephone":"876456789","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/65362/HC","color":"#87d3db","id":"16ff412fe6cfe90"},
+    {"x":3,"y":2017,"z":"HC","i":65362,"title":"Mrs","surname":"EGGSY","names":"UYT","telephone":"876456789","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/65362/HC","color":"#8d89ac","id":"24a1ff26d7c3d00","updated":"2017-03-19T04:30:09.883Z"},
+    {"x":3,"y":2017,"z":"HC","i":64664,"title":"Mrs","surname":"SAFE","names":"IU","telephone":"0987678878","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/64664/HC","color":"#d4addc","id":"2e813df97d0b420","updated":"2017-03-29T04:09:52.068Z"},
+    {"x":3,"y":2017,"z":"HC","i":64664,"title":"Mrs","surname":"HJT","names":"IU","telephone":"0987678878","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/64664/HC","color":"#cb2d7d","id":"3cfe194dbbd90c0"},
+    {"x":3,"y":2017,"z":"HC","i":64664,"title":"Mrs","surname":"HKN","names":"IU","telephone":"0987678878","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/64664/HC","color":"#dbcb3d","id":"24fa18b97ae05e0","updated":"2017-03-09T04:09:30.066Z"},
+    {"x":3,"y":2017,"z":"HC","i":64664,"title":"Mrs","surname":"HJT","names":"IU","telephone":"0987678878","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/64664/HC","color":"#c3b24b","id":"27f6dcd947a2360"},
+    {"x":3,"y":2017,"z":"HC","i":64664,"title":"Mrs","surname":"HJT","names":"IU","telephone":"0987678878","referral":"","gender":"m","age":77,"cost":45667,"created":"2017-03-09T04:08:22.922Z","patient_id":"2017/3/64664/HC","color":"#4dcabd","id":"24907c20fa21e60"}
+  ],
+
+  "sessions":[],
+
+  "payments":[
+    {"date":"2017-03-09T04:07:28.670Z","payment":98938743,"comment":"","patient_id":"396400715204520","id":"26c4a0751190e20"},
+    {"date":"2017-03-09T04:07:53.230Z","payment":100000,"comment":"","patient_id":"2a1232e9c401de0","id":"182f730dba76920"}
+  ],
+
+  "admins":[{"username":"jogboms","password":"jerian","admin":true,"id":"22f94c4a346f320"}]
+}

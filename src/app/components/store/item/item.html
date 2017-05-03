@@ -1,0 +1,75 @@
+<div class="container">
+  <ng-template #loadingEl>
+    <progress-bar></progress-bar>
+  </ng-template>
+
+  <ng-template #emptyEl>
+    <div class="alert bg-white text-home">No actions have been carried out on this item</div>
+  </ng-template>
+
+  <div *ngIf="item$ | async as item; else loadingEl">
+    <header class="clearfix">
+      <span class="pull-right">{{ item.stock }}</span>
+      <h2>{{ item.title }}</h2>
+      <div class="fa-2x">{{ item.cost|currency:'NGN':true }}</div>
+      <p class="lead">{{ item.description }}</p>
+
+      <small class="pull-right">{{ item.date | date }}</small>
+    </header>
+
+    <br />
+
+    <div *ngIf="item.actions?.length; else emptyEl">
+      <div *ngFor="let action of item.actions" class="media">
+        <span class="pull-left" href="ff">
+          <span>{{ action.stock }}</span>
+          <h4 class="label label-success" *ngIf="action.type == 0">ADDED</h4>
+          <h4 class="label label-danger" *ngIf="action.type == 1">SOLD</h4>
+          <h4 class="label label-primary" *ngIf="action.type == 2">USED</h4>
+        </span>
+        <div class="media-body">
+          <h4 class="media-heading">{{ action.date | date }}</h4>
+          <p>{{ action.comment }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="text-center">
+    <button class="btn btn-primary" (click)="showCreate = true">
+      <span class="glyphicon glyphicon-plus"></span>
+      CREATE ACTION
+    </button>
+  </div>
+
+  <div class="create add-top" *ngIf="showCreate" @toggle2>
+    <section class="">
+      <form (submit)="onSubmit($event)" class="form" [formGroup]="form">
+        <div class="form-group">
+          <div class="col-md-4">
+            <select formControlName="type" class="form-control">
+              <option selected value="0">ADD</option>
+              <option value="1">SOLD</option>
+              <option value="2">USED</option>
+            </select>
+          </div>      
+          <div class="col-md-4">
+            <input type="number" class="form-control" formControlName="stock" placeholder="0">
+          </div>
+          <div class="col-md-4">
+            <input type="date" class="form-control" formControlName="date" placeholder="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea formControlName="comment" class="form-control" rows="6" placeholder="Comment (optional)"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="cancel" (click)="onCancel($event)" class="btn btn-link btn-xs pull-right">cancel</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</div>

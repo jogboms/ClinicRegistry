@@ -1,0 +1,107 @@
+<a title="Create Patient" class="btn btn-fab btn-circle btn-danger" routerLink="/patients/create">
+  <span class="glyphicon glyphicon-plus"></span>
+</a>
+
+<ul class="nav row">
+
+  <li class="">
+    <strong class="label label-default"> {{ count }} </strong>
+  </li>
+
+  <li class="pull-right nav-item">
+
+    <form class="form-inline inline" [formGroup]="form" (submit)="$event.preventDefault()">
+
+      <div class="form-group">
+        <button
+          [class.active]="disabled.alpha_asc"
+          [disabled]="disabled.alpha_desc"
+          (click)="onSort('alpha_asc')"
+          type="button"
+          title="Sort by Name Ascending"
+          class="btn btn-sm btn-link"
+          >
+          <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+        </button>
+        <button
+          [class.active]="disabled.alpha_desc"
+          [disabled]="disabled.alpha_asc"
+          (click)="onSort('alpha_desc')"
+          type="button"
+          title="Sort by Name Descending"
+          class="btn btn-sm btn-link"
+          >
+          <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+        </button>
+
+        <button
+          [class.active]="disabled.date_asc"
+          [disabled]="disabled.date_desc"
+          (click)="onSort('date_asc')"
+          type="button"
+          title="Sort by Date Ascending"
+          class="btn btn-sm btn-link"
+          >
+          <span class="glyphicon glyphicon-sort-by-attributes"></span>
+        </button>
+        <button
+          [class.active]="disabled.date_desc"
+          [disabled]="disabled.date_asc"
+          (click)="onSort('date_desc')"
+          type="button"
+          title="Sort by Date Descending"
+          class="btn btn-sm btn-link"
+          >
+          <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+        </button>
+
+        <button
+          [class.active]="disabled.updated_asc"
+          [disabled]="disabled.updated_desc"
+          (click)="onSort('updated_asc')"
+          type="button"
+          title="Sort by Updated Date Ascending"
+          class="btn btn-sm btn-link"
+          >
+          <span class="glyphicon glyphicon-sort-by-attributes"></span>
+        </button>
+        <button
+          [class.active]="disabled.updated_desc"
+          [disabled]="disabled.updated_asc"
+          (click)="onSort('updated_desc')"
+          type="button"
+          title="Sort by Updated Date Descending"
+          class="btn btn-sm btn-link"
+          >
+          <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+        </button>
+      </div>
+
+      &nbsp;&nbsp;
+
+      <div title="Filter by Month" class="form-group">
+        <label><span class="text-muted small glyphicon glyphicon-filter"></span></label>
+        <input style="width: auto;" formControlName="month" type="month" class="form-control inline" value="1994-03" placeholder="Month-Year">
+      </div>
+
+      &nbsp;&nbsp;
+
+      <div class="form-group">
+        <input *ngIf="!switcher" formControlName="id" type="search" class="form-control inline" placeholder="Enter ID">
+        <input *ngIf="switcher" formControlName="name" type="search" class="form-control inline" placeholder="Enter any Name">
+      </div>
+
+      <button *ngIf="searching" type="button" (click)="onCancel()" class="btn btn-sm btn-link">
+        &times; cancel
+      </button>
+
+      <button type="button" (click)="onSwitch()" class="btn btn-sm btn-link">
+        <span class="glyphicon glyphicon-random"></span>&nbsp;&nbsp;switch
+      </button>
+
+      <button type="submit" class="btn btn-circle btn-warning">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </form>
+  </li>
+</ul>

@@ -1,0 +1,44 @@
+<h3 class="remove-top">
+  <i class="fa fa-stethoscope text-success fa-lg"></i>
+  <strong class="bg-grey" [hidden]="!!!patient.sessions.length">&nbsp;{{ patient.sessions.length }} </strong>
+  <small>Total</small>
+
+  <span class="pull-right">
+    <span title="Completed Sessions" class="badge bg-success">{{ patient.sessions.length - patient.remaining }}</span>
+    <span title="Remaining Sessions" class="badge bg-danger">{{ patient.remaining }}</span>
+  </span>
+</h3>
+
+<br />
+
+
+<div *ngIf="!patient.sessions.length" class="alert alert-warning">
+  No session has been started yet for the patient.
+</div>
+
+<div class="clearfix">
+  <patient-sessions-list
+    (toggle)="toggle($event)"
+    (edit)="edit($event)"
+    (remove)="remove($event)"
+    [session]="session"
+    *ngFor="let session of patient.sessions">
+  </patient-sessions-list>
+</div>
+
+<div class="clearfix">
+  <patient-sessions-create (create)="create($event)" *ngIf="show_session_create"></patient-sessions-create>
+</div>
+
+<div class="row">
+  <span [hidden]="show_session_create">
+    <button (click)="toggle_show_create()" type="button" class="btn btn-primary btn-lg pull-right btn-circle">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+  </span>
+  <span [hidden]="!show_session_create">
+    <button (click)="toggle_show_create()" type="button" class="btn btn-secondary btn-lg pull-right btn-circle">
+      <span class="glyphicon glyphicon-refresh"></span>
+    </button>
+  </span>
+</div>

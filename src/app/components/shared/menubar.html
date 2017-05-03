@@ -1,0 +1,42 @@
+<title>{{title}}</title>
+<div class="menu affixate1">
+  <header>
+    <ul class="nav">
+      <li class="nav-item">
+        <a *ngIf="IS_LOGGED && IS_ADMIN;" class="nav-link" routerLink="/diary" title="Diary">
+          <span class="glyphicon glyphicon-pencil"></span>
+          <span class="sr-only">Diary</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="IS_LOGGED" class="nav-link" routerLink="/messages" title="Messages">
+          <span class="glyphicon glyphicon-envelope"></span>
+          <span class="sr-only">Messages</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="IS_LOGGED" class="nav-link" routerLink="/appointments" title="Appointments">
+          <span class="glyphicon glyphicon-calendar"></span>
+          <span class="sr-only">Appointments</span>
+        </a>
+      </li>
+      <li class="nav-item home">
+        <a class="nav-link" routerLink="/" title="Home">
+          <span class="glyphicon glyphicon-home"></span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="IS_LOGGED" class="nav-link" routerLink="/patients" title="Patients">
+          <span class="glyphicon glyphicon-user"></span>
+            <span class="sr-only">Patients</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="IS_LOGGED" class="nav-link" routerLink="/store" title="Store">
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span class="sr-only">Store</span>
+        </a>
+      </li>
+    </ul>
+  </header>
+</div>

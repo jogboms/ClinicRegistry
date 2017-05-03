@@ -1,0 +1,176 @@
+<div id="wrap">
+  <menu-bar [title]="title"></menu-bar>
+
+  <div class="jumbotron">
+
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
+
+<footer id="footer" class="grids text-center remove-bottom add-top">
+  <div style="padding:1em;" class="container-fluid">
+    <span style="font-size:11px" class="pull-left text-muted">
+      {{title}} &copy; 2016
+    </span>
+
+    <div style="display:inline-block; margin: -1.75rem 0;">
+      <span *ngIf="IS_LOGGED" style="display:inline-block">
+        <button title="LOGOUT" (click)="onLogout()" class="btn btn-link inline" type="button">
+          <span class="mat fa-2x mat-power_settings_new"></span>
+        </button>
+        &middot;
+        <button title="BACKUP" (click)="onBackup()" class="btn btn-link inline" data-toggle="modal" data-target=".backup" type="button">
+          <span class="mat fa-2x mat-publish"></span>
+        </button>
+        &middot;
+        <button title="BACK" class="btn btn-link inline" (click)="onBack()" type="button">
+          <span class="mat mat-keyboard_arrow_left fa-2x"></span>
+        </button>
+        &middot;
+        <button title="FORWARD" class="btn btn-link inline" (click)="onForward()" type="button">
+          <span class="mat mat-keyboard_arrow_right fa-2x"></span>
+        </button>
+        &middot;
+        <button title="RESTORE" class="btn btn-link inline" data-toggle="modal" data-target=".restore" type="button">
+          <span class="mat fa-2x mat-get_app"></span>
+        </button>
+        &middot;
+      </span>
+      <button title="INFO" class="btn btn-link inline" data-toggle="modal" data-target=".about" type="button">
+        <span class="mat fa-2x mat-lightbulb_outline text-primary"></span>
+      </button>
+    </div>
+
+    <span class="pull-right small text-muted">
+      HandiKraft with <span class="text-danger glyphicon glyphicon-heart"></span>.
+    </span>
+  </div>
+</footer>
+
+<div *ngIf="backup" id="myModal_backup" class="modal fade backup" tabindex="-1" role="dialog" aria-labelledby="backup">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="padding: .5rem 1rem">
+      <button type="button" (click)="backup = false" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h3 class="text-center">
+        <small><span class="glyphicon glyphicon-floppy-disk"></span></small>
+        <br />
+        Backup Data
+      </h3>
+
+      <br />
+
+      <div *ngIf="downloading" class="text-center">
+        <i class="text-muted fa fa-spinner fa-spin fa-2x"></i>
+        <br />
+      </div>
+
+      <div *ngIf="downloading_success" class="text-center">
+        <div class="alert alert-success" role="alert">
+          You successfully backed up your data.
+        </div>
+      </div>
+
+
+      <form class="add-top text-center" [formGroup]="formBackup">
+        <div class="form-group">
+          <label [hidden]="true" class="file">
+            <input #input_backup [nwsaveas]="filename" type="file" (change)="formBackup.patchValue({ file: $event.target.files })" />
+            <span class="file-custom"></span>
+          </label>
+
+          <button class="btn btn-link" (click)="input_backup.click()">Select Folder</button>
+        </div>
+      </form>
+
+      <br />
+    </div>
+  </div>
+</div>
+
+<div id="myModal_restore" class="modal fade restore" tabindex="-1" role="dialog" aria-labelledby="restore">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="padding: .5rem 1rem">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h3 class="text-center">
+        <small><span class="glyphicon glyphicon-hdd"></span></small>
+        <br />
+        Restore Data
+      </h3>
+
+      <br />
+
+      <div [hidden]="!uploading" class="text-center">
+        <i class="text-muted fa fa-spinner fa-spin fa-2x"></i>
+        <br />
+      </div>
+
+      <div [hidden]="!uploading_success" class="text-center">
+        <div class="alert alert-success" role="alert">
+          You successfully restored your required data.
+        </div>
+      </div>
+
+      <form class="add-top text-center" [formGroup]="formRestore">
+        <div class="form-group">
+          <label [hidden]="true" class="file">
+            <input #input_restore type="file" (change)="formRestore.patchValue({ file: $event.target.files })" id="file" accept=".db">
+            <span class="file-custom"></span>
+          </label>
+
+          <button class="btn btn-link" (click)="input_restore.click()">Select File</button>
+        </div>
+
+        <div [hidden]="!uploading" class="form-group">
+          <button type="button" (click)="formRestore.patchValue({ submit: true })" title="Complete" class="btn btn-primary btn-circle btn-sm">
+            <span class="glyphicon glyphicon-upload"></span>
+          </button>
+        </div>
+      </form>
+
+      <br /><br />
+    </div>
+  </div>
+</div>
+
+<div id="myModal_about" class="modal fade about" tabindex="-1" role="dialog" aria-labelledby="about">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="padding: .5rem 1rem">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <style type="text/css">
+        #about {
+          padding: 3rem 6rem 3rem 6rem;
+          border-radius: 4px;
+        }
+        #about h1 {
+          margin-top: 0;
+        }
+        #about h1 small {
+          display: block;
+        }
+        #about p {
+          margin: 3.5rem auto 0;
+        }
+        #about footer {
+          padding: 1rem
+        }
+      </style>
+      <div id="about" class="text-center bg-white add-top add-bottom">
+        <h1>
+          <small><span class="glyphicon glyphicon-sunglasses text-primary fa-5x"></span></small>
+          Clinic Registry
+          <small>v2.0</small>
+        </h1>
+        <p class="lead">
+          This program was crafted by a <span class="text-danger">GEEK</span>.
+        </p>
+        <footer class="">
+          <strong>jeremiahogbomo@gmail.com</strong>
+          <br />
+          <span class="text-primary">@jogboms</span> &lt;#handikraft/&gt;
+        </footer>
+      </div>
+
+    </div>
+  </div>
+</div>

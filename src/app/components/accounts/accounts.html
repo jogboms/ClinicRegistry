@@ -1,0 +1,29 @@
+<div class="text-center">
+  <h1 class="display-3">
+    <span class="glyphicon glyphicon-user"></span>
+  </h1>
+
+  <br />
+
+  <div class="container">
+    <div class="row">
+      <form (submit)="onSubmit($event)" class="form col-sm-6 col-xs-11 col-center" [formGroup]="form" >
+        <div class="form-group row">
+          <input required type="password" formControlName="key" class="form-control" placeholder="Key">
+        </div>
+
+        <div class="form-group row">
+          <button type="submit" class="btn btn-circle btn-success btn-lg">
+            <span class="glyphicon glyphicon-ok fa-lg"></span>
+          </button>
+        </div>
+      </form>
+
+      <br /><br />
+
+      <div class="col-sm-6 col-xs-11 col-center">
+        <account *ngFor="let account of accounts$|async; let i = index" [account]="account" [index]="i"></account>
+      </div>
+    </div>
+  </div>
+</div>

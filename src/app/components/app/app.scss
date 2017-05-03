@@ -1,0 +1,24 @@
+:host {
+  color: grey;
+  // max-width: 540px;
+  margin: auto;
+  background: white;
+}
+header {
+  padding: 1rem;
+  text-align: center;
+}
+.container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 400px;
+
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+}
+.message {
+  padding: 1rem;
+  background: green;
+  color: white;
+}

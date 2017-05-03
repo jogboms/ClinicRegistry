@@ -1,0 +1,23 @@
+<style type="text/css">
+  textarea {
+    background-color: white;
+    padding: 1.5rem;
+    font-size: 2rem;
+  }
+</style>
+
+
+<div>
+  <div *ngIf="state.isTyping" class="bg-grey text-italic">
+    &nbsp;<strong>Typing...</strong>
+  </div>
+  <div *ngIf="state.isSaved" class="bg-success text-italic text-success">
+    &nbsp;<strong>Saved...</strong>
+  </div>
+</div>
+
+<form class="form" [formGroup]="form" role="form">
+  <div class="form-group">
+    <textarea #content formControlName="content" placeholder="Type Here..." rows="15" class="form-control"></textarea>
+  </div>
+</form>

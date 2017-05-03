@@ -1,0 +1,103 @@
+<div class="text-center">
+  <h1 class="display-3">
+    <span class="glyphicon glyphicon-user"></span>
+  </h1>
+
+  <br />
+  <div class="container">
+    <div class="col-md-8 col-center">
+
+      <alert [open]="create_success" type="success" role="alert">
+        <strong>Well done!</strong>
+        You successfully added a new Patient.
+        <a routerLink="/patients/view/{{ id$|async }}" class="alert-link">VISIT</a>.
+      </alert>
+
+      <alert [open]="create_submitted && create_invalid" type="warning" role="alert" [delay]="7500">
+        <strong>Ooops!</strong>
+        You left one or more empty.
+      </alert>
+
+      <form class="form" (submit)="onSubmit($event)" [formGroup]="form" novalidate >
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-8 col-center text-center">
+              <div class="col-xs-3">
+                <input type="number" formControlName="y" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                <input type="number" formControlName="x" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                <input required type="number" formControlName="i" autofocus="autofocus" placeholder="ID" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                <select formControlName="z" class="form-control">
+                  <option value="B"> &nbsp;Basic&nbsp;</option>
+                  <option value="HC"> &nbsp;HC - Hospital Call&nbsp;</option>
+                  <option value="hc"> &nbsp;hc - Home Call&nbsp;</option>
+                  <option value="vip"> &nbsp;VIP - VIP&nbsp;</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-2">
+              <input type="text" formControlName="title" placeholder="Mr." class="form-control">
+            </div>
+            <div class="col-xs-4">
+              <input type="text" formControlName="surname" placeholder="Surname" class="form-control">
+            </div>
+            <div class="col-xs-6">
+              <input type="text" formControlName="names" placeholder="Other names" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-xs-2">
+              <input type="number" formControlName="cost" placeholder="Total Cost" class="form-control">
+            </div>
+            <div class="col-xs-2">
+              <input type="number" min="1" formControlName="age" placeholder="Age" class="form-control">
+            </div>
+            <div class="col-xs-4">
+              <input type="tel" formControlName="telephone" placeholder="Phone number" class="form-control">
+            </div>
+            <div class="col-xs-4">
+              <div class="radio text-right">
+                <label>
+                  <input type="radio" formControlName="gender" checked value="m">
+                  Male
+                </label>
+                &nbsp;&nbsp;
+                <label>
+                  <input type="radio" formControlName="gender" value="f">
+                  Female
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+          <textarea formControlName="referral" rows="5" class="form-control" placeholder="Referral Doctor's Infomation (if any)"></textarea>
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-circle btn-success btn-lg">
+          <span class="glyphicon glyphicon-ok fa-lg"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

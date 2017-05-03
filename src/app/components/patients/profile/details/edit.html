@@ -1,0 +1,64 @@
+<form class="form" (submit)="onSubmit($event)" [formGroup]="form">
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-2">
+        <input required="true" type="text" formControlName="title" placeholder="Mr." class="form-control">
+      </div>
+      <div class="col-xs-4">
+        <input required="true" type="text" formControlName="surname" placeholder="Surname" class="form-control">
+      </div>
+      <div class="col-xs-6">
+        <input required="true" type="text" formControlName="names" placeholder="Other names" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="radio text-left">
+          <label>
+            <input type="radio" formControlName="gender" value="m">
+            Male
+          </label>
+          &nbsp;&nbsp;
+          <label>
+            <input type="radio" formControlName="gender" value="f">
+            Female
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <input required="true" type="number" min="1" formControlName="age" placeholder="Age" class="form-control">
+      </div>
+      <div class="col-xs-2">
+        <input required="true" type="text" formControlName="cost" placeholder="Total Cost" class="form-control">
+      </div>
+      <div class="col-xs-4">
+        <input type="tel" formControlName="telephone" placeholder="Phone number" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="form-group">
+    <textarea formControlName="referral" rows="5" class="form-control" placeholder="Referral Doctor's Infomation (if any)"></textarea>
+  </div>
+
+  <div class="form-group">
+    <select formControlName="z" class="form-control">
+      <option value=""> &nbsp;Basic&nbsp;</option>
+      <option value="HC"> &nbsp;HC - Hospital Call&nbsp;</option>
+      <option value="hc"> &nbsp;hc - Home Call&nbsp;</option>
+    </select>
+  </div>
+
+  <br />
+
+  <button type="submit" class="btn btn-lg btn-success btn-circle">
+    <span class="glyphicon glyphicon-save"></span>
+  </button>
+</form>

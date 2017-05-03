@@ -1,0 +1,58 @@
+<div class="text-center">
+  <h1 class="display-3">
+    <span class="glyphicon glyphicon-plus"></span>
+  </h1>
+
+  <br />
+
+  <div class="container">
+
+    <div [hidden]="!create_submitted">
+      <div [hidden]="!state.create_success" class="alert alert-success" role="alert">
+        You have successfully created a new account. <a  routerLink="/login" class="alert-link">LOGIN</a>
+      </div>
+
+      <div [hidden]="!state.create_key_error" class="alert alert-warning" role="alert">
+        The activation key is not correct. Contact Developer on +2347065175283.
+      </div>
+
+      <div [hidden]="!state.create_max_limit" class="alert alert-danger" role="alert">
+        You have reached the MAXIMUM limit for account creation. Contact Developer on +2347065175283.
+      </div>
+
+      <div [hidden]="!state.create_error" class="alert alert-danger" role="alert">
+        That username already exists. Try a different one.
+      </div>
+    </div>
+
+    <form [hidden]="state.create_success" (submit)="onSubmit($event)" class="form col-sm-5 col-xs-10 col-center" [formGroup]="form" >
+      <div class="form-group row">
+        <input type="text" formControlName="username" class="form-control" placeholder="Username">
+      </div>
+
+      <div class="form-group row">
+        <input type="password" formControlName="password" class="form-control" placeholder="Password">
+      </div>
+      
+      <div class="form-group row text-left">
+        <label for="" class="text-muted">MAKE ADMIN?</label>&nbsp;
+        <input type="checkbox" formControlName="admin" class="pull-right">
+      </div>
+
+      <div class="form-group row">
+        <input required type="password" formControlName="key" class="form-control" placeholder="Key">
+      </div>
+
+      <br />
+
+      <div class="form-group row">
+        <button type="submit" class="btn btn-circle btn-success btn-lg">
+          <span class="glyphicon glyphicon-ok fa-lg"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

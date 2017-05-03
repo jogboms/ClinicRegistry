@@ -1,0 +1,42 @@
+<div class="container">
+  <h1 class="text-center">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </h1>
+
+  <div class="col-md-9 col-center clearfix">
+    <div class="clearfix">
+      <h5 class="inline text-muted remove-top">
+        <small>
+          <span class="glyphicon glyphicon-inbox"></span>
+        </small>
+        &nbsp;{{ date | date }}
+      </h5>
+      <span style="min-width: 125px;" class="pull-right">
+        <small>GO TO:</small>
+        &nbsp;
+        <button type="button" (click)="onToday()" class="btn btn-primary btn-square btn-xs">TODAY</button>
+        &nbsp;
+        <form class="form inline" [formGroup]="form" role="form">
+          <input type="date" value="" class="form-control" formControlName="date">
+        </form>
+      </span>
+    </div>
+
+    <div class="">
+      <h3 class="clearfix row remove-top">
+        <div class="pull-right">
+          <a routerLink="view" class="btn btn-link">
+            <span class="fa-lg mat mat-landscape"></span>
+            View
+          </a>
+          <a routerLink="edit" class="btn btn-link">
+            <span class="fa-lg mat mat-border_color"></span>
+            Edit
+          </a>
+        </div>
+      </h3>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

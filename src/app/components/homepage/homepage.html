@@ -1,0 +1,22 @@
+<div class="text-center">
+  <h1 class="display-3">
+    <img style="animation: pulse 2s infinite cubic-bezier(0.39, 0.77, 0.33,-0.36);" src="assets/img/logo.png">
+  </h1>
+
+  <br /><br />
+
+  <div class="container">
+    <div class="lead">
+      <h4>Clinic Registry</h4>
+      <p>Store Appointment & Client Records with Ease and Accuracy.</p>
+    </div>
+
+    <br />
+
+    <p [hidden]="IS_LOGGED$ | async" class="lead">
+      <a style="padding: 1.5rem 2rem !important;" class="btn btn-primary btn-circle btn-lg" routerLink="/login" role="button">
+        <span class="glyphicon glyphicon-lock fa-lg"></span>
+      </a>
+    </p>
+  </div>
+</div>
