@@ -41,7 +41,7 @@ export class DiaryEffects {
         year: date.getFullYear(),
         day: date.getDate(),
         created: new Date(),
-        date: date,
+        date,
         content,
       }
       this.diary.create(note);

@@ -41,7 +41,7 @@ export class MessagesEffects {
         year: date.getFullYear(),
         day: date.getDate(),
         created: new Date(),
-        date: date,
+        date,
         content,
       }
       this.messages.create(note);

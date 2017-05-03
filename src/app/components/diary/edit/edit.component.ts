@@ -38,13 +38,12 @@ export class DiaryEdit implements OnInit {
 
   ngOnInit() {
     this.Sub = this.store.let(getDiaryDayData())
-      .take(1).filter(x => x)
-      .subscribe(({ content }) => this.form.patchValue({ content }))
+      .map(content => content || ' ')
+      .subscribe(({ content }) => this.form.patchValue({ content }, { emitEvent: false }))
 
     this.el.nativeElement.focus();
 
     this.formSub = this.form.valueChanges
-      .skip(1)
       .do(() => Object.assign(this.state, { isTyping: true, isSaved: false }))
       .map(v => v.content)
       .map(content => content.trim())
