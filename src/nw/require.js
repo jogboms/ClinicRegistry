@@ -1,7 +1,9 @@
 // Global Object libraries
 if(typeof require != 'undefined'){
   window.fs = require('fs');
-  window.jQuery = window.$ = require('jquery');
+  window.jay = { name: 'jay' };
+  console.log(window);
+  // window.jQuery = window.$ = require('jquery');
 }
 
 // Node-Webkit environment
