@@ -20,8 +20,8 @@ export class DiaryActions {
   }
 
   static INIT = '[DIARY] INIT';
-  init(): Action {
-    return { type: DiaryActions.INIT };
+  init(payload = null): Action {
+    return { type: DiaryActions.INIT, payload };
   }
 
   static INIT_SUCCESS = '[DIARY] INIT SUCCESS';

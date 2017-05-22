@@ -28,6 +28,7 @@ export class MessagesService {
   }
 
   create(message): MessageModel {
+    message.status = true;
     let p = MessagesDB.upsert(message);
     return p.result[0];
   }

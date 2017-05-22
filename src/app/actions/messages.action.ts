@@ -20,8 +20,8 @@ export class MessagesActions {
   }
 
   static INIT = '[MESSAGES] INIT';
-  init(): Action {
-    return { type: MessagesActions.INIT };
+  init(payload = null): Action {
+    return { type: MessagesActions.INIT, payload };
   }
 
   static INIT_SUCCESS = '[MESSAGES] INIT SUCCESS';

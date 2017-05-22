@@ -42,8 +42,8 @@ export class StoreActions {
   }
 
   static INIT = '[STORE] INIT';
-  init(): Action {
-    return { type: StoreActions.INIT };
+  init(payload = null): Action {
+    return { type: StoreActions.INIT, payload };
   }
 
   static INIT_SUCCESS = '[STORE] INIT SUCCESS';
@@ -52,8 +52,8 @@ export class StoreActions {
   }
 
   static INIT_ACTIONS = '[STORE] INIT ACTIONS';
-  init_actions(): Action {
-    return { type: StoreActions.INIT_ACTIONS };
+  init_actions(payload = null): Action {
+    return { type: StoreActions.INIT_ACTIONS, payload };
   }
 
   static INIT_ACTIONS_SUCCESS = '[STORE] INIT ACTIONS SUCCESS';

@@ -28,6 +28,7 @@ export class DiaryService {
   }
 
   create(diary): DiaryModel {
+    diary.status = true;
     let p = DiaryDB.upsert(diary);
     return p.result[0];
   }

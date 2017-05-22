@@ -26,7 +26,8 @@ export class DiaryEffects {
 
   @Effect() init$: Observable<Action> = this.actions$
     .ofType(DiaryActions.INIT)
-    .switchMap(() => this.diary.fetch())
+    .map(action => action.payload)
+    .switchMap(preload => preload ? Observable.of(preload) : this.diary.fetch())
     .map(s => this.diaryActions.init_success(s));
 
   @Effect() create$: Observable<Action> = this.actions$

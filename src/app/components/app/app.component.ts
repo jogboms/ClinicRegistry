@@ -81,6 +81,7 @@ export class AppComponent implements OnInit {
     this.formRestore.valueChanges
       .do(() => this.uploading = true)
       .filter(values => values.submit)
+      // .do(x => console.log('------------', x))
       // .map(() => {
       //   let f = DB;
       //   // console.log(f);

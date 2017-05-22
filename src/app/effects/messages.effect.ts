@@ -26,7 +26,8 @@ export class MessagesEffects {
 
   @Effect() init$: Observable<Action> = this.actions$
     .ofType(MessagesActions.INIT)
-    .switchMap(() => this.messages.fetch())
+    .map(action => action.payload)
+    .switchMap(preload => preload ? Observable.of(preload) : this.messages.fetch())
     .map(s => this.messagesActions.init_success(s));
 
   @Effect() create$: Observable<Action> = this.actions$

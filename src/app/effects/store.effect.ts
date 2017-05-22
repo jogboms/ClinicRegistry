@@ -51,7 +51,8 @@ export class StoreEffects {
 
   @Effect() init$: Observable<Action> = this.actions$
     .ofType(StoreActions.INIT)
-    .switchMap(() => this.stores.fetch())
+    .map(action => action.payload)
+    .switchMap(preload => preload ? Observable.of(preload) : this.stores.fetch())
     .combineLatest(this.store.let(getStoreActionData()))
     .map(([items, actions]) => items.map(__fix(actions)))
     .map(s => this.storeActions.init_success(s));

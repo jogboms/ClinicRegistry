@@ -29,6 +29,7 @@ export class StoreService {
   }
 
   create(store): StoreItemModel {
+    store.status = true;
     let p = StoreDB.upsert(store);
     return p.result[0];
   }

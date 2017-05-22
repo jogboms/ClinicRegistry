@@ -28,6 +28,7 @@ export class StoreActionService {
   }
 
   create(action): StoreActionModel {
+    action.status = true;
     let p = StoreActionDB.insert(action);
     // console.log(p)
     return p.inserted[0];

@@ -1,9 +1,10 @@
+// import * as $ from 'jquery';
 // Global Object libraries
 if(typeof require != 'undefined'){
   window.fs = require('fs');
-  window.jay = { name: 'jay' };
-  console.log(window);
+
   // window.jQuery = window.$ = require('jquery');
+  // window.jQuery = window.$ = require('jquery')(window);
 }
 
 // Node-Webkit environment

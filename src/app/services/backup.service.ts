@@ -1,16 +1,33 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import "rxjs/Rx";
+import * as Rx from "rxjs/Rx";
+window['Rx'] = Rx;
+
 import { Store } from '@ngrx/store';
 import { AppState } from 'app/reducers';
-import { BackupActions } from 'app/actions/backup.action';
-import { PatientsActions } from 'app/actions/patients.action';
-import { PaymentsActions } from 'app/actions/payments.action';
-import { SessionsActions } from 'app/actions/sessions.action';
-import "rxjs/Rx";
 
 import { PatientModel } from 'app/model/patient.model';
-
-import { BackupDB, AdminsDB, PatientsDB, PaymentsDB, SessionsDB } from "../storage/clinicreg";
+import {
+  BackupActions,
+  PatientsActions,
+  PaymentsActions,
+  SessionsActions,
+  DiaryActions,
+  MessagesActions,
+  StoreActions,
+} from 'app/actions';
+import {
+  BackupDB,
+  AdminsDB,
+  PatientsDB,
+  PaymentsDB,
+  DiaryDB,
+  MessagesDB,
+  StoreDB,
+  StoreActionDB,
+  SessionsDB
+} from "../storage/clinicreg";
 
 /**
  * Back Up class
@@ -29,6 +46,9 @@ export class BackupService {
     private patientsActions: PatientsActions,
     private paymentsActions: PaymentsActions,
     private sessionsActions: SessionsActions,
+    private diaryActions: DiaryActions,
+    private messagesActions: MessagesActions,
+    private storeActions: StoreActions,
   ){}
 
   fetch(): Observable<PatientModel[]> {
@@ -37,21 +57,34 @@ export class BackupService {
 
   out(): Observable<string> {
     return Observable.of(0).map((o) => {
-      // Get update sessions and/or payments
+      // Get update sessions, payments and/or storeActions
       const __sessions = SessionsDB.find({ status: true });
       const __payments = PaymentsDB.find({ status: true });
+      const __storeActions = StoreActionDB.find({ status: true });
 
       // Get only patient_id columns from both collections
       const __set = new Set<string>(__sessions.map(b => b.patient_id).concat(__payments.map(b => b.patient_id)));
+      // Get only item_id columns from both collection
+      const __set2 = new Set<string>(__storeActions.map(b => b.item_id));
 
       // Get Updated patient IDs
       const ids = [ ...Array.from(__set) ];
+      // Get Updated storeActions IDs
+      const ids2 = [ ...Array.from(__set2) ];
 
       // Get patients that have been updated or have updated sessions and/or payments
       const __patients = PatientsDB.find({
         $or: [
           { status: true },
           { id: { $in: ids } },
+        ]
+      });
+
+      // Get store records that have been updated or have updated actions
+      const __store = StoreDB.find({
+        $or: [
+          { status: true },
+          { id: { $in: ids2 } },
         ]
       });
 
@@ -62,6 +95,10 @@ export class BackupService {
           patients: PatientsDB.data(),
           sessions: SessionsDB.data(),
           payments: PaymentsDB.data(),
+          diary: DiaryDB.data(),
+          messages: MessagesDB.data(),
+          store: StoreDB.data(),
+          storeAction: StoreActionDB.data(),
           admins: AdminsDB.data(),
         },
         updated : {
@@ -69,6 +106,10 @@ export class BackupService {
           patients: __patients,
           sessions: __sessions,
           payments: __payments,
+          diary: DiaryDB.data(),
+          messages: MessagesDB.data(),
+          store: __store,
+          storeAction: __storeActions,
           admins: AdminsDB.data(),
         }
       }
@@ -91,34 +132,28 @@ export class BackupService {
     // Save present state of Patients into Backup database
     this.store.dispatch(this.backupActions.save());
 
-    
     // Full restore
     // parsed = data.full;
     parsed = data.updated;
 
-    const x = Observable.create((o) => {
-      SessionsDB.upsert(parsed['sessions'], (x) => {
-        this.store.dispatch(this.sessionsActions.init(SessionsDB.data()));
-        SessionsDB.save();
-        o.next(true);
+    const __ = (name, action, db) => {
+      return Observable.of(null).do(() => {
+        db.upsert(parsed[name], (x) => {
+          this.store.dispatch(action.init(db.data()));
+          db.save();
+        });
       });
-    });
-    const y = Observable.create((o) => {
-      PaymentsDB.upsert(parsed['payments'], (x) => {
-        this.store.dispatch(this.paymentsActions.init(PaymentsDB.data()));
-        PaymentsDB.save();
-        o.next(true);
-      });
-    });
-    const z = Observable.create((o) => {
-      PatientsDB.upsert(parsed['patients'], (x) => {
-        this.store.dispatch(this.patientsActions.init(PatientsDB.data()));
-        PatientsDB.save();
-        o.next(true);
-      });
-    });
+    }
 
-    return Observable.of(0).switchMap(() => x).switchMap(() => y).switchMap(() => z)
+    const a = __('diary', this.diaryActions, DiaryDB);
+    const b = __('messages', this.messagesActions, MessagesDB);
+    const c = __('store', this.storeActions, StoreDB);
+    const d = __('storeAction', this.storeActions, StoreActionDB);
+    const x = __('sessions', this.sessionsActions, SessionsDB);
+    const y = __('payments', this.paymentsActions, PaymentsDB);
+    const z = __('patients', this.patientsActions, PatientsDB);
+
+    return Observable.concat(a, b, c, d, x, y, z)
       .map(() => true)
       .delay(1500)
   }
