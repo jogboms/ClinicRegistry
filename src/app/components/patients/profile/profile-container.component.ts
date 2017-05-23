@@ -24,7 +24,7 @@ import { getPatient, getBackupPatient } from 'app/reducers';
     <div *ngIf="(view_type == 'back' ? backup$ : patient$) | async as patient; else loadingEl">
       <patient-profile (view)="toggle($event)" [type]="view_type"
         (actions)="dispatch($event)"
-        [IS_ADMIN]="IS_ADMIN"
+        [IS_ADMIN]="IS_ADMIN$ | async"
         [visible]="visible$ | async"
         [patient]="patient">
       </patient-profile>
@@ -36,7 +36,7 @@ export class PatientsProfileContainer {
   backup$: Observable<PatientModel>;
   visible$: Observable<string>;
   view_type = 'up';
-  IS_ADMIN: boolean = false;
+  IS_ADMIN$: Observable<boolean> = Observable.of(false);
 
   constructor(
     private store: Store<AppState>,
@@ -48,7 +48,7 @@ export class PatientsProfileContainer {
     private route: ActivatedRoute,
     ){
 
-    this.store.let(getAdmin()).subscribe(state => this.IS_ADMIN = !!state)
+    this.IS_ADMIN$ = this.store.let(getAdmin());
   }
 
   ngOnInit(){

@@ -3,7 +3,7 @@ import { trigger} from "@angular/animations";
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Store } from '@ngrx/store';
-import { AppState, getLogged, getStoreData } from 'app/reducers';
+import { AppState, getLogged, getAdmin, getStoreData } from 'app/reducers';
 
 import { StoreItemModel } from 'app/model/storeItem.model';
 import { StoreActions } from 'app/actions/store.action';
@@ -22,6 +22,7 @@ export class StoreComponent {
   form: FormGroup;
   items$: Observable<StoreItemModel[]>;
   IS_LOGGED$: Observable<boolean>;
+  IS_ADMIN$: Observable<boolean> = Observable.of(false);
   showCreate: boolean = false;
 
   constructor(
@@ -30,6 +31,7 @@ export class StoreComponent {
     private storeActions: StoreActions
     ) {
     this.IS_LOGGED$ = this.store.let(getLogged());
+    this.IS_ADMIN$ = this.store.let(getAdmin());
     this.items$ = this.store.let(getStoreData());
   }
 
@@ -43,8 +45,7 @@ export class StoreComponent {
     });
   }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() { }
 
   onSubmit(e){
     this.store.dispatch(this.storeActions.create(this.form.value));

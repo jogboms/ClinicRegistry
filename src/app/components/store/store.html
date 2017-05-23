@@ -55,7 +55,7 @@
                 </td>
                 <td>{{ item.date | date }}</td>
                 <td>
-                  <button type="button" (click)="onDelete(item)" class="btn btn-outline btn-danger btn-xs">
+                  <button *ngIf="IS_ADMIN$ | async" type="button" (click)="onDelete(item)" class="btn btn-outline btn-danger btn-xs">
                     &nbsp;<span class="glyphicon glyphicon-trash"></span>&nbsp;
                   </button>
                 </td>
