@@ -19,17 +19,22 @@
 
     <br />
 
-    <div *ngIf="item.actions?.length; else emptyEl">
-      <div *ngFor="let action of item.actions" class="media">
-        <span class="pull-left" href="ff">
-          <span>{{ action.stock }}</span>
-          <h4 class="label label-success" *ngIf="action.type == 0">ADDED</h4>
-          <h4 class="label label-danger" *ngIf="action.type == 1">SOLD</h4>
-          <h4 class="label label-primary" *ngIf="action.type == 2">USED</h4>
-        </span>
-        <div class="media-body">
-          <h4 class="media-heading">{{ action.date | date }}</h4>
-          <p>{{ action.comment }}</p>
+    <div *ngIf="item.actions?.length; else emptyEl" class="clearfix" style="margin: 0 -17px;">
+      <div *ngFor="let action of item.actions" class="col-md-6">
+        <div class="media" style="margin: 0 -13px 5px -13px;">
+          <span class="pull-left" href="ff">
+            <span>{{ action.stock }}</span>
+            <ng-container *ngIf="action.type as type">
+              <h4 class="label label-success" *ngIf="type == 0">ADDED</h4>
+              <h4 class="label label-danger" *ngIf="type == 1">SOLD</h4>
+              <h4 class="label label-primary" *ngIf="type == 2">USED</h4>
+              <h4 class="label label-default" *ngIf="type == 4">CREATED</h4>
+            </ng-container>
+          </span>
+          <div class="media-body">
+            <h4 class="media-heading">{{ action.date | date }}</h4>
+            <p>{{ action.comment }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -49,17 +54,17 @@
       <form (submit)="onSubmit($event)" class="form" [formGroup]="form">
         <div class="form-group">
           <div class="col-md-4">
+            <input type="date" class="form-control" formControlName="date" placeholder="0">
+          </div>
+          <div class="col-md-4">
             <select formControlName="type" class="form-control">
               <option selected value="0">ADD</option>
               <option value="1">SOLD</option>
               <option value="2">USED</option>
             </select>
-          </div>      
-          <div class="col-md-4">
-            <input type="number" class="form-control" formControlName="stock" placeholder="0">
           </div>
           <div class="col-md-4">
-            <input type="date" class="form-control" formControlName="date" placeholder="0">
+            <input type="number" class="form-control" formControlName="stock" placeholder="0">
           </div>
         </div>
         <div class="form-group">

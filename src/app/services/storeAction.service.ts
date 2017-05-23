@@ -30,10 +30,7 @@ export class StoreActionService {
   create(action): StoreActionModel {
     action.status = true;
     let p = StoreActionDB.insert(action);
-    // console.log(p)
     return p.inserted[0];
-    // let p = StoreActionDB.upsert(action);
-    // return p.result[0];
   }
 
   persist() {

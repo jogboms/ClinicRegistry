@@ -40,7 +40,7 @@ export class StoreItem implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     this.form = this._form.group({
-      type: ['', Validators.required],
+      type: [1, Validators.required],
       comment: [''],
       item_id: [this.item_id],
       stock: [0, Validators.required],

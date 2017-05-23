@@ -81,12 +81,13 @@ export class AppComponent implements OnInit {
     this.formRestore.valueChanges
       .do(() => this.uploading = true)
       .filter(values => values.submit)
-      // .do(x => console.log('------------', x))
+      .do(x => console.log('------------', x))
       // .map(() => {
       //   let f = DB;
       //   // console.log(f);
       //   return [f, 'a'] //a || r
       // })
+      .filter(values => values.file[0].path)
       .flatMap(values => Observable.of(fs.readFileSync(values.file[0].path, 'utf8')))
       .delay(1000)
       .flatMap(contents => this._backup.in(contents))

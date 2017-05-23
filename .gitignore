@@ -6,6 +6,7 @@
 /build
 /depends
 /output
+/nw
 
 # dependencies
 /node_modules

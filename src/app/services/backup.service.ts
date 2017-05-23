@@ -136,10 +136,10 @@ export class BackupService {
     // parsed = data.full;
     parsed = data.updated;
 
-    const __ = (name, action, db) => {
+    const __ = (name, action, db, method = 'init') => {
       return Observable.of(null).do(() => {
         db.upsert(parsed[name], (x) => {
-          this.store.dispatch(action.init(db.data()));
+          this.store.dispatch(action[method](db.data()));
           db.save();
         });
       });
@@ -148,7 +148,7 @@ export class BackupService {
     const a = __('diary', this.diaryActions, DiaryDB);
     const b = __('messages', this.messagesActions, MessagesDB);
     const c = __('store', this.storeActions, StoreDB);
-    const d = __('storeAction', this.storeActions, StoreActionDB);
+    const d = __('storeAction', this.storeActions, StoreActionDB, 'init_actions');
     const x = __('sessions', this.sessionsActions, SessionsDB);
     const y = __('payments', this.paymentsActions, PaymentsDB);
     const z = __('patients', this.patientsActions, PatientsDB);

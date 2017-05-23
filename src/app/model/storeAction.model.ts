@@ -1,5 +1,5 @@
 export interface StoreActionModel {
-  id: string;
+  id?: string;
   date: Date;
   comment: string;
   item_id: string;

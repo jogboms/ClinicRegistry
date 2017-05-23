@@ -8,8 +8,8 @@
     "build": "ng build",
     "build:w": "ng build -pr -sm=false --aot=true -prod",
     "build:ww": "ng build -pr -w -sm=false --aot=true -prod",
-    "build:nw": "ng build -pr -sm=false --aot=true -prod && gulp nw && gulp zip",
-    "build:nww": "ng build -pr -w -sm=false --aot=true -prod && gulp nw && gulp zip",
+    "build:nw": "ng build -pr -sm=false --aot=true -prod && gulp nw && gulp zip:nw",
+    "build:nww": "ng build -pr -w -sm=false --aot=true -prod && gulp nw && gulp zip:nw",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

@@ -40,4 +40,5 @@ gulp.task('scss', () => {
 const date = new Date(), timestamp = date.getFullYear()+''+(date.getMonth()+1)+''+date.getDate()+'-'+date.getHours()+''+date.getMinutes()+''+date.getSeconds();
 gulp.task('zip:commit:dist', () => gulp.src('dist/**/*').pipe(zip('build-dist-'+timestamp+'.zip')).pipe(gulp.dest('build/dist')));
 gulp.task('zip:commit:src', () => gulp.src('src/**/*').pipe(zip('build-src-'+timestamp+'.zip')).pipe(gulp.dest('build/src')));
+gulp.task('zip:nw', () => gulp.src('dist/**/*').pipe(zip('build.nw')).pipe(gulp.dest('nw')));
 gulp.task('zip', () => gulp.src('dist/**/*').pipe(zip('build.zip')).pipe(gulp.dest('build')));

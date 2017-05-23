@@ -15,19 +15,24 @@ export const __fix = (actions = null) => {
     const P = { ...item };
 
     if(actions !== null) {
-      P.actions = actions.filter(p =>  p && p.item_id == P.id);
+      const def_type = 4;
+      const def_initial_stock = P.stock;
+      const sorter = (x, y) => x > y ? 1 : (x < y ? -1 : 0);
+      P.actions = actions.sort((a, b) => sorter(b.date, a.date)).filter(p =>  p && p.item_id == P.id);
       const reduce = P.actions.reduce((a, c) => {
         let stock = a.stock;
-        if(+c.type == 1 || +c.type == 2) {
+        if(+c.type == 1 || +c.type == 2) { // Sold or Used
           stock -= +c.stock;
         }
-        else {
+        else if(+c.type == 0) { // Added
           stock += +c.stock;
         }
+        // Do nothing for just created
         return { stock, type: +c.type };
-      }, { stock: +item.stock, type: 0 });
+      }, { stock: +item.stock, type: def_type });
+      P.initial_stock = P.actions[P.actions.length - 1] && P.actions[P.actions.length - 1].stock || def_initial_stock; // Get last stock
       P.stock = reduce.stock;
-      P.last_action = reduce.type;
+      P.last_action = P.actions[0] && P.actions[0].type || def_type;
     }
 
     return P;
@@ -57,13 +62,13 @@ export class StoreEffects {
     .map(([items, actions]) => items.map(__fix(actions)))
     .map(s => this.storeActions.init_success(s));
 
-  @Effect() create$: Observable<Action> = this.actions$
+  @Effect({ dispatch: false }) create$ = this.actions$
     .ofType(StoreActions.CREATE)
     .map(action => action.payload)
-    .map((item: StoreItemModel) => {
-      this.stores.create(item);
-      return this.storeActions.create_success(item);
-    })
+    .map((item: StoreItemModel) => this.stores.create(item))
+    .do(item => this.storeActions.create_success(item))
+    .map(item => ({ date: new Date, comment: 'Just created this item', item_id: item.id, type: 4, stock: item.stock }))
+    .do(action => this.store.dispatch(this.storeActions.create_action(action)))
     .do(() => this.stores.persist());
 
   @Effect() remove$: Observable<Action> = this.actions$

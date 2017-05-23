@@ -8,5 +8,6 @@ export interface StoreItemModel {
   description: string;
   date: Date;
   actions: StoreActionModel[];
+  initial_stock?: number;
   last_action: number;
 }

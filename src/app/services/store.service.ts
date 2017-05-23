@@ -31,7 +31,7 @@ export class StoreService {
   create(store): StoreItemModel {
     store.status = true;
     let p = StoreDB.upsert(store);
-    return p.result[0];
+    return p.op == 'insert' ? p.result.inserted[0] : p.result[0];
   }
 
   persist() {

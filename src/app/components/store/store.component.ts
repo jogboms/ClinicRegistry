@@ -30,7 +30,7 @@ export class StoreComponent {
     private storeActions: StoreActions
     ) {
     this.IS_LOGGED$ = this.store.let(getLogged());
-    this.items$ = this.store.let(getStoreData()).do(x=>console.log(x));
+    this.items$ = this.store.let(getStoreData());
   }
 
   ngOnInit(){

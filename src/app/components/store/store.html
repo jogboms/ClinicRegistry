@@ -2,7 +2,7 @@
   <h1 class="text-center">
     <span class="glyphicon glyphicon-shopping-cart"></span>
   </h1>
-  
+
   <br />
 
   <ng-template #loadingEl>
@@ -13,7 +13,7 @@
     <div *ngIf="!stores?.length; else storesEl" class="text-center alert alert-warning" role="alert">
       No Items exists.
     </div>
-    
+
     <ng-template #storesEl>
       <div class="clearfix">
         <div class="">
@@ -23,6 +23,7 @@
                 <th>S/N<sup>o</sup></th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Start Stock</th>
                 <th>Stock</th>
                 <th>Cost</th>
                 <th>Last Action</th>
@@ -43,13 +44,14 @@
                 <td>
                   {{ item.description }}
                 </td>
-                <td>(<strong>{{ item.stock }}</strong>)</td>
-                <td><strong>{{ item.cost|currency:'NGN':true }}</strong></td>
+                <td><strong style="font-size: 1.75rem;" class="text-danger">{{ item.initial_stock }}</strong></td>
+                <td><strong style="font-size: 1.75rem;" class="text-primary">{{ item.stock }}</strong></td>
+                <td><strong class="text-success">{{ item.cost|currency:'NGN':true }}</strong></td>
                 <td>
-                  <h4 class="label label-warning" *ngIf="item.last_action == null">CREATED</h4>
                   <h4 class="label label-success" *ngIf="item.last_action == 0">ADDED</h4>
                   <h4 class="label label-danger" *ngIf="item.last_action == 1">SOLD</h4>
-                  <h4 class="label label-primary" *ngIf="item.last_action == 2">USED</h4>  
+                  <h4 class="label label-primary" *ngIf="item.last_action == 2">USED</h4>
+                  <h4 class="label label-default" *ngIf="item.last_action == 4">CREATED</h4>
                 </td>
                 <td>{{ item.date | date }}</td>
                 <td>
@@ -60,7 +62,7 @@
               </tr>
             </tbody>
           </table>
-        </div>      
+        </div>
       </div>
     </ng-template>
   </div>
