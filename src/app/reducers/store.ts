@@ -1,10 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { StoreItemModel } from 'app/model/storeItem.model';
 import { StoreActionModel } from 'app/model/storeAction.model';
 import { StoreActions } from '../actions/store.action';
+
+import { Action } from 'app/reducers';
 
 export type StoreData = { [id: number]: StoreItemModel };
 export interface StoreState {

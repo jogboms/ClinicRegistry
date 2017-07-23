@@ -1,8 +1,10 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import { AppointmentModel } from '../model/appointment.model';
 import { AppointmentsActions } from '../actions/appointments.action';
+
+import { Action } from 'app/reducers';
 
 export type AppointmentsState = AppointmentModel[];
 

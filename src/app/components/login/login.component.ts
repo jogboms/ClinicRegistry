@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AppState, getLogged } from 'app/reducers';
 
 import { AuthActions } from 'app/actions/auth.action';
+import { loginActions } from "app/effects/auth.effect";
 
 @Component({
   moduleId: module.id,

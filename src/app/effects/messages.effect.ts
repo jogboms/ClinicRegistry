@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -8,6 +9,7 @@ import { AppState, getMessagesSelectedDate } from 'app/reducers';
 import { MessagesActions } from 'app/actions/messages.action';
 import { MessagesService } from 'app/services/messages.service';
 import { MONTHS } from 'app/utils/months';
+import { BOOT } from "app/actions";
 
 @Injectable()
 export class MessagesEffects {
@@ -20,19 +22,14 @@ export class MessagesEffects {
     ) {}
 
   // Initiate load of all messages at App boot
-  @Effect() boot$: Observable<Action> = this.store.take(1)
-    .mapTo(this.messagesActions.init())
-
-
-  @Effect() init$: Observable<Action> = this.actions$
-    .ofType(MessagesActions.INIT)
-    .map(action => action.payload)
+  @Effect() init$: Observable<Action> = this.actions$.ofType(BOOT)
+    .map((action: Action) => action.payload)
     .switchMap(preload => preload ? Observable.of(preload) : this.messages.fetch())
     .map(s => this.messagesActions.init_success(s));
 
   @Effect() create$: Observable<Action> = this.actions$
     .ofType(MessagesActions.CREATE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .withLatestFrom(this.store.let(getMessagesSelectedDate()))
     .map(([{ content }, date]) => {
       const note = {

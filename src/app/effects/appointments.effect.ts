@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
@@ -8,6 +9,7 @@ import 'rxjs/Rx';
 import { AppState, getPaymentsData, getSessionsData } from 'app/reducers';
 import { AppointmentsActions } from 'app/actions/appointments.action';
 import { MONTHS } from 'app/utils/months';
+import { BOOT } from "app/actions";
 
 @Injectable()
 export class AppointmentsEffects {
@@ -20,12 +22,12 @@ export class AppointmentsEffects {
     ) {}
 
   // Initiate load of all appointments at App boot
-  @Effect() boot$: Observable<Action> = this.store.take(1)
+  @Effect() boot$: Observable<Action> = this.actions$.ofType(BOOT)
     .mapTo(this.appointmentsActions.fetch(this.default_year))
 
   @Effect() init$: Observable<Action> = this.actions$
     .ofType(AppointmentsActions.FETCH)
-    .map(action => action.payload).filter(year => +year && +year > 2000 )
+    .map((action: Action) => action.payload).filter(year => +year && +year > 2000 )
     .combineLatest(this.store.let(getPaymentsData()), this.store.let(getSessionsData()))
     .map(([year, payments, sessions]) => {
       const p = _.countBy(payments.filter(p => p.year == year), p => p['month'])

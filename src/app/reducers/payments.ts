@@ -1,10 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { PaymentModel } from 'app/model/payment.model';
 import { PaymentsActions } from '../actions/payments.action';
 import { PatientActions } from '../actions/patient.action';
+
+import { Action } from 'app/reducers';
 
 export type PaymentData = { [id: number]: PaymentModel };
 export interface PaymentsState {

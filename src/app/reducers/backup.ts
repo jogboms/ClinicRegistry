@@ -1,10 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { PatientsState, PatientData } from './patients';
 import { PatientModel } from 'app/model/patient.model';
 import { BackupActions } from '../actions/backup.action';
+
+import { Action } from 'app/reducers';
 
 export interface BackupState {
   selected: string;

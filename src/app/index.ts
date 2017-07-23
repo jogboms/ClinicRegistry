@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule  } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { STORE } from './reducers';
+import { STORE, STORE_PROVIDERS } from './reducers';
 import { SERVICES } from './services';
 import { EFFECTS } from './effects';
 import { ACTIONS } from './actions';
@@ -43,7 +43,7 @@ const routes:Routes = [
     }),
     ReactiveFormsModule,
     ...STORE,
-    ...EFFECTS,
+    EFFECTS,
   ],
   declarations: [
     AppComponent,
@@ -54,6 +54,7 @@ const routes:Routes = [
   providers: [
     ...SERVICES,
     ...ACTIONS,
+	...STORE_PROVIDERS,
   ],
   bootstrap: [ AppComponent ],
 })

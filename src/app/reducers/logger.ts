@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { Action } from 'app/reducers';
 
 export function logger(reducer) {
   return (state, action: Action) => {

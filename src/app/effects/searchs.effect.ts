@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -19,7 +20,7 @@ export class SearchsEffects {
 
   @Effect() by_id$: Observable<Action> = this.actions$
     .ofType(SearchsActions.BY_ID)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .withLatestFrom(this.store.let(getPatientsData()))
     .map(([id, patients]) => {
       const searched = patients.find((patient: PatientModel) => patient.patient_id === id);
@@ -28,7 +29,7 @@ export class SearchsEffects {
 
   @Effect() by_key$: Observable<Action> = this.actions$
     .ofType(SearchsActions.BY_KEY)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .withLatestFrom(this.store.let(getPatientsData()))
     .map(([key, patients]) => {
       const regex = new RegExp(key, 'i');

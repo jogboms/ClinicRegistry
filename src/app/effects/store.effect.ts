@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -9,6 +10,7 @@ import { StoreActions } from 'app/actions/store.action';
 import { StoreService } from 'app/services/store.service';
 import { MONTHS } from 'app/utils/months';
 import { StoreItemModel } from 'app/model/storeItem.model';
+import { BOOT } from "app/actions";
 
 export const __fix = (actions = null) => {
   return (item: StoreItemModel): StoreItemModel => {
@@ -50,13 +52,8 @@ export class StoreEffects {
     ) {}
 
   // Initiate load of all store at App boot
-  @Effect() boot$: Observable<Action> = this.store.take(1)
-    .mapTo(this.storeActions.init())
-
-
-  @Effect() init$: Observable<Action> = this.actions$
-    .ofType(StoreActions.INIT)
-    .map(action => action.payload)
+  @Effect() init$: Observable<Action> = this.actions$.ofType(BOOT)
+    .map((action: Action) => action.payload)
     .switchMap(preload => preload ? Observable.of(preload) : this.stores.fetch())
     .combineLatest(this.store.let(getStoreActionData()))
     .map(([items, actions]) => items.map(__fix(actions)))
@@ -64,7 +61,7 @@ export class StoreEffects {
 
   @Effect({ dispatch: false }) create$ = this.actions$
     .ofType(StoreActions.CREATE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map((item: StoreItemModel) => this.stores.create(item))
     .do(item => this.storeActions.create_success(item))
     .map(item => ({ date: new Date, comment: 'Just created this item', item_id: item.id, type: 4, stock: item.stock }))
@@ -73,7 +70,7 @@ export class StoreEffects {
 
   @Effect() remove$: Observable<Action> = this.actions$
     .ofType(StoreActions.REMOVE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(item => this.stores.remove(item))
     .map(update => this.storeActions.remove_success(update))
     .do(() => this.stores.persist());

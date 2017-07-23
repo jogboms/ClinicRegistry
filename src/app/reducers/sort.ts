@@ -1,7 +1,8 @@
-import { Action } from '@ngrx/store';
 import { SortActions } from '../actions/sort.action';
 import { PatientModel } from 'app/model/patient.model';
 import { Observable } from 'rxjs/Observable';
+
+import { Action } from 'app/reducers';
 
 export interface SortState {
   date: number;

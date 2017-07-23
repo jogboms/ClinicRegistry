@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -48,25 +49,25 @@ export class PatientEffects {
 
   @Effect() create$: Observable<Action> = this.actions$
     .ofType(PatientActions.CREATE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(insert => this.patients.add(insert))
     .map(patient => this.patientActions.create_success(__fix([], [])(patient)))
 
   @Effect() edit$: Observable<Action> = this.actions$
     .ofType(PatientActions.EDIT)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(update => this.patients.edit(update))
     .map(patient => this.patientActions.edit_success(__fix()(patient)))
 
   @Effect() seen$: Observable<Action> = this.actions$
     .ofType(PatientActions.SEEN)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(id => this.patients.seen(id))
     .map(patient => this.patientActions.edit_success(__fix()(patient)))
 
   @Effect() delete$: Observable<Action> = this.actions$
     .ofType(PatientActions.REMOVE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(id => this.patients.delete(id))
     .map(id => this.patientActions.delete_success(id))
 

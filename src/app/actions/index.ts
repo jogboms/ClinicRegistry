@@ -1,3 +1,4 @@
+export * from './boot.action';
 export * from './auth.action';
 export * from './sort.action';
 export * from './backup.action';
@@ -12,6 +13,7 @@ export * from './payments.action';
 export * from './sessions.action';
 export * from './appointments.action';
 
+import { BootActions } from './boot.action';
 import { AuthActions } from './auth.action';
 import { SortActions } from './sort.action';
 import { BackupActions } from './backup.action';
@@ -40,5 +42,6 @@ export const ACTIONS = [
   SearchsActions,
   AppointmentsActions,
   AuthActions,
+  BootActions,
 ];
 

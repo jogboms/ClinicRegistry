@@ -1,10 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { SessionModel } from 'app/model/session.model';
 import { SessionsActions } from '../actions/sessions.action';
 import { PatientActions } from '../actions/patient.action';
+
+import { Action } from 'app/reducers';
 
 export type SessionData = { [id: number]: SessionModel };
 export interface SessionsState {

@@ -1,7 +1,8 @@
-import { Action } from '@ngrx/store';
 import { FilterActions } from '../actions/filter.action';
 import { PatientModel } from 'app/model/patient.model';
 import { filter as F } from 'app/utils/filter';
+
+import { Action } from 'app/reducers';
 
 export type FilterState = (a:any) => number|boolean;
 

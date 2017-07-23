@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import { PatientModel } from 'app/model/patient.model';
 import { SearchsActions } from '../actions/searchs.action';
 import { PatientsState } from './patients';
+
+import { Action } from 'app/reducers';
 
 export interface SearchsState {
   searching: boolean;

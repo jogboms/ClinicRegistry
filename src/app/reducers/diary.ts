@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { DiaryModel } from '../model/diary.model';
 import { DiaryActions } from '../actions/diary.action';
+
+import { Action } from 'app/reducers';
 
 export type DiaryData = { [id: number]: DiaryModel };
 export interface DiaryState {

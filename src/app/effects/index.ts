@@ -1,5 +1,6 @@
 import { EffectsModule } from '@ngrx/effects';
 
+import { BootEffects } from "./boot.effect";
 import { PatientEffects } from './patient.effect';
 import { SessionsEffects } from './sessions.effect';
 import { PaymentsEffects } from './payments.effect';
@@ -13,17 +14,18 @@ import { AppointmentsEffects } from './appointments.effect';
 import { SearchsEffects } from './searchs.effect';
 import { AuthEffects } from './auth.effect';
 
-export const EFFECTS = [
-  EffectsModule.run(PatientEffects),
-  EffectsModule.run(SessionsEffects),
-  EffectsModule.run(StoreEffects),
-  EffectsModule.run(StoreActionsEffects),
-  EffectsModule.run(DiaryEffects),
-  EffectsModule.run(MessagesEffects),
-  EffectsModule.run(PaymentsEffects),
-  EffectsModule.run(BackupEffects),
-  EffectsModule.run(PatientsEffects),
-  EffectsModule.run(AppointmentsEffects),
-  EffectsModule.run(SearchsEffects),
-  EffectsModule.run(AuthEffects),
-];
+export const EFFECTS = EffectsModule.forRoot([
+	PatientEffects,
+	SessionsEffects,
+	StoreEffects,
+	StoreActionsEffects,
+	DiaryEffects,
+	MessagesEffects,
+	PaymentsEffects,
+	BackupEffects,
+	PatientsEffects,
+	AppointmentsEffects,
+	SearchsEffects,
+	AuthEffects,
+	BootEffects, // Should always remain last https://github.com/ngrx/platform/issues/103#issuecomment-316813618
+]);

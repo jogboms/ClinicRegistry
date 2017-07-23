@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -8,6 +9,7 @@ import { AppState, getDiarySelectedDate } from 'app/reducers';
 import { DiaryActions } from 'app/actions/diary.action';
 import { DiaryService } from 'app/services/diary.service';
 import { MONTHS } from 'app/utils/months';
+import { BOOT } from "app/actions";
 
 @Injectable()
 export class DiaryEffects {
@@ -20,19 +22,14 @@ export class DiaryEffects {
     ) {}
 
   // Initiate load of all diary at App boot
-  @Effect() boot$: Observable<Action> = this.store.take(1)
-    .mapTo(this.diaryActions.init())
-
-
-  @Effect() init$: Observable<Action> = this.actions$
-    .ofType(DiaryActions.INIT)
-    .map(action => action.payload)
+  @Effect() init$: Observable<Action> = this.actions$.ofType(BOOT)
+    .map((action: Action) => action.payload)
     .switchMap(preload => preload ? Observable.of(preload) : this.diary.fetch())
     .map(s => this.diaryActions.init_success(s));
 
   @Effect() create$: Observable<Action> = this.actions$
     .ofType(DiaryActions.CREATE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .withLatestFrom(this.store.let(getDiarySelectedDate()))
     .map(([{ content }, date]) => {
       const note = {

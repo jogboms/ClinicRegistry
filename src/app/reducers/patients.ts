@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { patient } from './patient';
@@ -8,6 +8,8 @@ import { PatientActions } from '../actions/patient.action';
 import { PatientsActions } from '../actions/patients.action';
 import { SessionsActions } from '../actions/sessions.action';
 import { PaymentsActions } from '../actions/payments.action';
+
+import { Action } from 'app/reducers';
 
 export type PatientData = { [id: number]: PatientModel };
 export interface PatientsState {

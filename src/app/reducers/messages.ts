@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { MessageModel } from '../model/message.model';
 import { MessagesActions } from '../actions/messages.action';
+
+import { Action } from 'app/reducers';
 
 export type MessagesData = { [id: number]: MessageModel };
 export interface MessagesState {

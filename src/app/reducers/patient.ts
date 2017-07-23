@@ -1,10 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import { PatientModel } from 'app/model/patient.model';
 import { PaymentModel } from 'app/model/payment.model';
 import { PatientActions } from '../actions/patient.action';
 import { SessionsActions } from '../actions/sessions.action';
+
+import { Action } from 'app/reducers';
 
 export type PatientState = PatientModel;
 

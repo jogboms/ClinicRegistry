@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+import { Action } from 'app/reducers';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -10,6 +11,7 @@ import { PatientActions } from 'app/actions/patient.action';
 import { PaymentsActions } from 'app/actions/payments.action';
 
 import { PaymentsService } from 'app/services/payments.service';
+import { BOOT } from "app/actions";
 
 @Injectable()
 export class PaymentsEffects {
@@ -31,12 +33,8 @@ export class PaymentsEffects {
   }
 
   // Initiate load of all payments at App boot
-  @Effect() boot$: Observable<Action> = this.store.take(1)
-    .map(() => this.paymentsActions.init());
-
-  @Effect() init$: Observable<Action> = this.actions$
-    .ofType(PaymentsActions.INIT)
-    .map(action => action.payload)
+  @Effect() init$: Observable<Action> = this.actions$.ofType(BOOT)
+    .map((action: Action) => action.payload)
     .switchMap(preload => preload ? Observable.of(preload) : this.payments.fetch())
     .map(data => {
       const payments =  data.map(this.__fix)
@@ -46,25 +44,25 @@ export class PaymentsEffects {
 
   @Effect() create$: Observable<Action> = this.actions$
     .ofType(PaymentsActions.CREATE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(payment => this.payments.create(payment))
     .map(update => this.paymentsActions.create_success(this.__fix(update)))
 
   @Effect() edit$: Observable<Action> = this.actions$
     .ofType(PaymentsActions.EDIT)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(payment => this.payments.edit(payment))
     .map(update => this.paymentsActions.edit_success(update))
 
   @Effect() remove$: Observable<Action> = this.actions$
     .ofType(PaymentsActions.REMOVE)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(payment => this.payments.remove(payment))
     .map(update => this.paymentsActions.remove_success(update))
 
   @Effect({ dispatch: false }) remove_by_patient$ = this.actions$
     .ofType(PatientActions.REMOVE_SUCCESS)
-    .map(action => action.payload)
+    .map((action: Action) => action.payload)
     .map(id => this.payments.removeByPatient(id))
 
   @Effect({ dispatch: false }) persist$ = this.actions$

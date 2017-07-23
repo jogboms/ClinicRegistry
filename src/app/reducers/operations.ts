@@ -1,5 +1,7 @@
 import { Observable } from 'rxjs/Observable';
-import { Store, Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
+
+import { Action } from 'app/reducers';
 
 const initialState = null;
 
