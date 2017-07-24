@@ -10,8 +10,8 @@ import { AppointmentModel } from 'app/model/appointment.model';
 
 
 @Component({
-  selector: 'appointments-main',
-  template: `
+	selector: 'appointments-main',
+	template: `
     <div class="container">
       <h1 class="text-center">
         <span class="glyphicon glyphicon-calendar"></span>
@@ -34,14 +34,16 @@ import { AppointmentModel } from 'app/model/appointment.model';
 
         <br />
 
-        <div *ngIf="!fetched" class="clearfix text-center">
-          <h2>
-            <small><i class="fa fa-spinner fa-4x fa-spin"></i></small>
-          </h2>
-        </div>
+		<ng-template #spinnerEl>
+	        <div class="clearfix text-center">
+	          <h2>
+	            <small><i class="fa fa-spinner fa-4x fa-spin"></i></small>
+	          </h2>
+	        </div>
+		</ng-template>
 
-        <div class="clearfix">
-          <appointment-months-list *ngFor="let appointment of appointments$ | async" [appointment]="appointment"></appointment-months-list>
+        <div class="clearfix" *ngIf="appointments$ | async as appointments; else spinnerEl">
+          <appointment-months-list *ngFor="let appointment of appointments" [appointment]="appointment"></appointment-months-list>
         </div>
 
       </div>
@@ -49,31 +51,28 @@ import { AppointmentModel } from 'app/model/appointment.model';
   `,
 })
 export class AppointmentsMain {
-  appointments$: Observable<AppointmentModel[]>;
-  years: number[] = [];
-  year: number = (new Date).getFullYear();
-  start_year: number = 2016;
-  end_year: number = 2026;
-  fetched: boolean = false;
+	appointments$: Observable<AppointmentModel[]>;
+	years: number[] = [];
+	year: number = (new Date).getFullYear();
+	start_year: number = 2016;
+	end_year: number = 2026;
 
-  constructor(
-    private store: Store<AppState>,
-    private appointmentsActions: AppointmentsActions,
-    ){
+	constructor(
+		private store: Store<AppState>,
+		private appointmentsActions: AppointmentsActions,
+	) {
 
-    for(var i = this.start_year; i <= this.end_year; i++)
-      this.years.push(i);
-  }
+		for (var i = this.start_year; i <= this.end_year; i++)
+			this.years.push(i);
+	}
 
-  ngOnInit(){
-    this.appointments$ = this.store.select(state => state.appointments)
-      .do(appointments => this.fetched = false)
-      .filter(x => x !== null)
-      .do(appointments => this.fetched = true)
-  }
+	ngOnInit() {
+		this.appointments$ = this.store.select(state => state.appointments)
+			.filter(x => x !== null)
+	}
 
-  onChange(e){
-    this.year = +e.target.value;
-    this.store.dispatch(this.appointmentsActions.fetch(this.year))
-  }
+	onChange(e) {
+		this.year = +e.target.value;
+		this.store.dispatch(this.appointmentsActions.fetch(this.year))
+	}
 }
